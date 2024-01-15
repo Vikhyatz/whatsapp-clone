@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 const plm = require("passport-local-mongoose")
 
 mongoose.connect(
-  "mongodb+srv://vikhyat:vikhyat123@clusterv.gydmg0e.mongodb.net/whatsappclone?retryWrites=true&w=majority")
+  "your mongo db connector id")
   .then(() => {
     console.log("Connected to MongoDB");
   })
