@@ -1,0 +1,155 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+body {
+    background-color: #121B22;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow-x: hidden;
+    width: 100%;
+    height: 100vh;
+}
+
+nav {
+    background-color: #1F2C34;
+    width: 100%;
+    height: 50px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    border-bottom: 2px solid rgba(128, 128, 128, 0.418);
+}
+
+nav p {
+    font-weight: 500;
+    font-size: 22px;
+}
+
+nav a {
+    color: white;
+    margin-right: 10px;
+    font-size: 19px;
+    position: absolute;
+    left: 20px;
+    padding: 10px 10px;
+}
+
+#userInfo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.userimg {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-left: 20px;
+}
+
+main {
+    width: calc(100% - 20px);
+    max-width: 400px;
+    height: 100%;
+    background-color: #121B22;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 10px;
+    overflow-y: auto;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+.message-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    max-width: 70%;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+    overflow-wrap: break-word;
+}
+
+.sent {
+    background-color: #025D4C;
+    color: white;
+    align-self: flex-end;
+}
+
+.received {
+    background-color: #1F2C34;
+    color: white;
+    align-self: flex-start;
+}
+
+footer {
+    height: 50px;
+    width: 100%;
+    background-color: #121B22;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#formDiv {
+    height: 40px;
+    width: calc(100% - 20px);
+    max-width: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#messageInp {
+    background-color: #1F2C34;
+    width: calc(100% - 90px);
+    height: fit-content;
+    font-size: 17px;
+    outline: 0;
+    border: 0;
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+#sendIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #01A785;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: 0;
+    border: 0;
+}
+
+footer i {
+    color: white;
+    font-size: 20px;
+}
+
+@media only screen and (max-width: 430px) {
+    nav {
+        gap: calc(100% - 200px);
+    }
+}

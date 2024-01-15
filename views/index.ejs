@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../stylesheets/index.css">
+    <title>Whatsapp Clone | signup</title>
+</head>
+
+<body>
+
+    <div class="signinContainer">
+        <p class="signin">Register to Whatsapp</p>
+        <form class="form" action="/register" method="post">
+            <input type="username" id="username" name="username" placeholder="Enter your username" type="text"
+                class="input" required autocomplete="off">
+            <p id="usernameVerifier"></p>
+            <input type="email" name="email" placeholder="Enter your email or phone" type="text" class="input" required
+                autocomplete="off">
+            <input type="password" name="password" placeholder="Enter your password" type="password" class="input"
+                required autocomplete="off">
+            <button id="submitBtn" class="submit" type="submit">Sign in</button>
+        </form>
+        <div class="login">
+            <p>have a account already?&nbsp;</p>
+            <a href="/login"> log in </a>
+        </div>
+    </div>
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+
+
+
+<script>
+
+    let usernameInp = document.getElementById('username')
+    let usernameVerifier = document.getElementById('usernameVerifier')
+    let submitBtn = document.getElementById('submitBtn')
+
+    usernameInp.addEventListener('input', () => {
+        axios.get(`/usernamecheck/${usernameInp.value}`)
+            .then(function (response) {
+                console.log(response.data)
+                usernameVerifier.style.display = 'block'
+                if (response.data == null) {
+                    usernameVerifier.innerHTML = 'username available'
+                    usernameVerifier.style.color = 'lime'
+                    submitBtn.removeAttribute('disabled')
+                }
+                else {
+                    usernameVerifier.innerHTML = 'username not available'
+                    usernameVerifier.style.color = 'red'
+                    submitBtn.setAttribute('disabled', '')
+                }
+            })
+    })
+</script>
+
+</html>

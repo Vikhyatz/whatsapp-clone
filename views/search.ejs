@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/60734bdbf3.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/stylesheets/search.css">
+    <title>Whatsapp Clone | Search</title>
+</head>
+
+<body>
+    <div id="searchDiv">
+        <a href="/chats"><i class="fa-solid fa-arrow-left"></i></a>
+        <form action="/search" method="get">
+            <input name="searchInp" id="searchInp" type="text" placeholder="Search..." autocomplete="off">
+        </form>
+    </div>
+    <div id="line"></div>
+    <div id="results"></div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+
+<script>
+    let searchInp = document.getElementById('searchInp')
+    let results = document.getElementById('results')
+
+    if (results.innerHTML == '') {
+        results.innerHTML = '<h2>Nobody right now :(</h2>'
+    }
+
+    searchInp.addEventListener('input', () => {
+        axios.get(`/search/${searchInp.value}`)
+            .then(function (response) {
+                results.innerHTML = ''
+                console.log(response.data);
+                response.data.forEach(user => {
+                    let div = document.createElement('div')
+                    div.classList.add('div')
+                    div.innerHTML = `
+                    <div id="img">
+                        <img src="${user.profilePicture}"
+                            width="50px">
+                    </div>
+                    <p>${user.username}</p>
+                    <button class="addFriend" data-id="${user._id}" ><i class="fa-solid fa-plus"></i></button>
+                    `
+
+                    results.appendChild(div)
+
+
+                });
+                // code for getting id when clicked to add friend
+                let addFriendBtns = document.querySelectorAll('.addFriend')
+                console.log(addFriendBtns)
+                addFriendBtns.forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        button.innerHTML = '<i class="fa-solid fa-check"></i>';
+                        button.disabled = true;
+                        let friendId = button.getAttribute('data-id');
+                        console.log(friendId);
+
+                        axios.get(`/addfriend/${friendId}`)
+                            .then(function (response) {
+                                console.log(response)
+                            })
+                    });
+                });
+            })
+            .catch(function (error) {
+                console.error('Error making the request:', error);
+            });
+
+
+    });
+</script>
+
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/60734bdbf3.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/stylesheets/profile.css">
+    <title>Whatsapp Clone | Profile</title>
+</head>
+
+<body>
+    <div class="img">
+        <img src="<%= user.profilePicture %>" alt="">
+    </div>
+    <h1>
+        <%= user.username %>
+    </h1>
+    <hr>
+    <a href="/profilepicture"><button>update profile picture</button></a>
+    <a href="/logout"><i class="fa-solid fa-power-off"></i></a>
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/60734bdbf3.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/stylesheets/mainchat.css">
+    <title>Whatsapp Clone</title>
+</head>
+
+<body>
+    <nav>
+        <a href="/chats"><i class="fa-solid fa-arrow-left"></i></a>
+        <div id="userInfo">
+            <div class="userimg">
+                <img src=" <%= receiverId.profilePicture %> " width="30px" alt="User Image">
+            </div>
+            <p>
+                <%= friendname %>
+            </p>
+        </div>
+    </nav>
+
+    <main>
+        <div class="message-container" id="messageContainer">
+            <!-- <div class="message received">
+                <p>Hello there!</p>
+            </div>
+            <div class="message sent">
+                <p>Hi! How are you?</p>
+            </div> -->
+        </div>
+    </main>
+
+    <footer>
+        <form id="formDiv">
+            <input id="messageInp" type="text" placeholder="Message" autocomplete="off">
+            <button id="sendIcon" type="submit">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </form>
+    </footer>
+</body>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+
+<script>
+
+    const socket = io();
+
+
+
+    // joining room socket code
+    let serverRoomName = '<%= roomName %>' // room id from server
+    console.log("roomName:", serverRoomName)
+    socket.emit('joinRoom', serverRoomName)
+
+    let messageContainer = document.getElementById('messageContainer')
+    let formDiv = document.getElementById('formDiv')
+    let messageInp = document.getElementById('messageInp')
+    let myUserId = '<%= myUserId %>' // my mongo userID from server
+
+    // to display older chats according to room name
+    axios.get(`/getChats/${serverRoomName}`)
+        .then(function (response) {
+            console.log(response.data.messages)
+            response.data.messages.forEach(chatMetaData => {
+                const msg = document.createElement('div');
+                msg.classList.add("message")
+                // Add CSS class based on sender information
+                msg.classList.add(chatMetaData.senderId === myUserId ? 'sent' : 'received');
+
+                msg.innerHTML = `<p>${chatMetaData.messageSent}</p>`;
+
+                messageContainer.appendChild(msg);
+            });
+        })
+
+    // submitting the message form
+    formDiv.addEventListener('submit', (e) => {
+        e.preventDefault()
+
+        if (messageInp.value) {
+            // function to send the metadata of the message
+            const roomName = serverRoomName;
+            const message = messageInp.value;
+            const senderId = myUserId; // as i am the sender
+
+            // Emit the message to the server
+            socket.emit('sendMessage', { roomName, senderId, message });
+
+            // socket.emit('chat message', messageInp.value);
+            messageInp.value = '';
+        }
+        messageContainer.scrollTop = messageContainer.scrollHeight;
+    })
+
+
+    // main socket of chat message
+    socket.on('receiveMessage', ({ senderId, message }) => {
+        const msg = document.createElement('div');
+        msg.classList.add("message")
+        // Add CSS class based on sender information
+        msg.classList.add(senderId === myUserId ? 'sent' : 'received');
+
+        msg.textContent = message;
+
+        messageContainer.appendChild(msg);
+    });
+
+
+</script>
+
+</html>

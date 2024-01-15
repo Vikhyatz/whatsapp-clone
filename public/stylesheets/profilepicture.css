@@ -1,0 +1,52 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+body {
+    background-color: #1F2C34;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow-x: hidden;
+    color: white
+}
+
+h2 {
+    margin-block: 20px;
+}
+
+.mainGrid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 20px;
+    margin-block: 20px;
+}
+
+.img {
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.img:hover {
+    filter: brightness(65%);
+}
+
+.clicked {
+    filter: brightness(50%);
+    border: 4px solid white;
+}
+
+.img img {
+    width: inherit;
+    height: inherit;
+}
+
+button {
+    margin-block: 20px;
+    padding: 10px;
+}

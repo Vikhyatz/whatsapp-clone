@@ -1,0 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: black;
+    flex-direction: column;
+}
+
+.signinContainer {
+    width: 80%;
+    max-width: 400px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 20px;
+    border: 2px dashed grey;
+    padding: 5%;
+}
+
+.form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    background-color: black;
+    gap: 10px;
+}
+
+.input {
+    width: 100%;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid rgb(48, 45, 45);
+    background-color: black;
+    padding: 10px;
+    color: white;
+    transition: .5s;
+}
+
+.input:focus {
+    border: 1px rgb(0, 136, 255) solid;
+    outline: none;
+}
+
+.input:focus::placeholder {
+    color: rgb(0, 136, 255);
+}
+
+.submit {
+    width: 100%;
+    padding: 10px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: .3s;
+    margin-top: 20px;
+}
+
+.signin {
+    width: 100%;
+    color: white;
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    padding: 5% 0;
+}
+
+.submit:hover {
+    opacity: .9;
+}
+
+.login {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin-top: 10%;
+    color: rgb(111, 103, 103);
+    font-size: 13px;
+    font-family: sans-serif;
+    background-color: rgba(255, 0, 0, 0);
+}
+
+.login a {
+    color: rgb(0, 136, 255);
+}
+
+/* Media Queries */
+@media screen and (max-width: 600px) {
+    .signinContainer {
+        width: 90%;
+        padding: 5%;
+    }
+}

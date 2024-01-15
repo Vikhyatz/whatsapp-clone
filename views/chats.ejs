@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/60734bdbf3.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/stylesheets/chats.css">
+    <title>Whatsapp Clone | recent chats</title>
+</head>
+
+<body>
+    <nav>
+        <h1>Whatsapp</h1>
+        <div class="navigationIcons">
+            <a href="/search"><i class="fa-solid fa-magnifying-glass"></i></a>
+            <a href="/profile" id="profile">
+                <img src="<%= user.profilePicture %>" width="37px">
+            </a>
+        </div>
+    </nav>
+    <div id="line"></div>
+    <div id="results">
+        <% friends.friends.forEach(friend=> { %>
+            <div class="div" data-name=" <%= friend.username %> ">
+                <div id="img">
+                    <img src=" <%= friend.profilePicture %> " width="50px">
+                </div>
+                <p>
+                    <%= friend.username %>
+                </p>
+            </div>
+            <% }); %>
+    </div>
+    <script>
+        let results = document.getElementById('results')
+        console.log('empty')
+
+        if (results.innerHTML == '\n        \n    ') {
+            results.innerHTML = `
+                <h2 style="color: white;">
+                    no friends :(
+                </h2>
+            `
+        }
+
+        let chats = document.querySelectorAll('.div')
+
+        chats.forEach(chat => {
+            chat.addEventListener('click', () => {
+                let name = chat.getAttribute('data-name')
+                console.log(name)
+                window.location.href = `/mainchat?name=${encodeURIComponent(name)}`;
+            })
+        })
+
+    </script>
+</body>
+
+</html>

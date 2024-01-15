@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/60734bdbf3.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/stylesheets/profilepicture.css">
+    <title>Whatsapp Clone | Profile</title>
+</head>
+
+<body>
+    <h2>
+        hey <%= user.username %>, let's choose a profile picture for you
+    </h2>
+
+    <div class="mainGrid" id="mainGrid">
+    </div>
+
+    <button onClick=getPfp()>refresh images</button>
+    <button id="btn" disabled>SET</button>
+
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+
+<script>
+    let mainGrid = document.getElementById('mainGrid');
+    let btn = document.getElementById('btn');
+
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        let img = document.querySelector('.clicked .img img');
+        let imgUrl = img.getAttribute('src');
+
+        axios.post('/updateProfilePicture', { url: imgUrl })
+            .then(function (response) {
+                console.log(response.data); // 'Profile picture set.'
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+
+        window.location.href = '/chats';
+    });
+
+    async function getPfp() {
+        const url = 'https://any-anime.p.rapidapi.com/v1/anime/png/10';
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': 'd06e57d0dbmsh5c752ba56050157p1fc35ejsne1760d40ce86',
+                'X-RapidAPI-Host': 'any-anime.p.rapidapi.com'
+            }
+        };
+
+        try {
+            const response = await fetch(url, options);
+            const result = await response.json();
+            mainGrid.innerHTML = ''; // Clear existing images before adding new ones
+
+            result.images.forEach(image => {
+                let div = document.createElement('div');
+                div.classList.add('img');
+                div.innerHTML = `
+                    <div class="img">
+                        <img src="${image}">
+                    </div>
+                `;
+                mainGrid.appendChild(div);
+
+                div.addEventListener('click', () => {
+                    document.querySelectorAll('.img').forEach(element => {
+                        element.classList.remove('clicked');
+                    });
+
+                    div.classList.add('clicked');
+                    updateButtonState();
+                });
+            });
+
+            updateButtonState(); // Call the function initially
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    function updateButtonState() {
+        let clickedImage = document.querySelector('.clicked');
+        if (clickedImage) {
+            btn.removeAttribute('disabled');
+        } else {
+            btn.setAttribute('disabled', true);
+        }
+    }
+
+    getPfp();
+</script>
+
+</html>
