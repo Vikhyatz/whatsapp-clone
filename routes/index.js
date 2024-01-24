@@ -165,27 +165,6 @@ router.get("/logout", function (req, res) {
   });
 })
 
-router.get('/allusers', async function (req, res) {
-  let allusers = await userModel.find()
-  res.send(allusers)
-})
-
-router.get('/allmessages', async function (req, res) {
-  let allusers = await messageModel.find()
-  res.send(allusers)
-})
-
-router.get('/deleteallmessages', async function (req, res) {
-  let deleted = await messageModel.deleteMany()
-  res.send(deleted)
-})
-
-router.get('/deleteall', async function (req, res) {
-  let deleted = await userModel.deleteMany()
-  res.send(deleted)
-})
-
-
 // this function differentiates the pages which require logged in user
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) return next()
